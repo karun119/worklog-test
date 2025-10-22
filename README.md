@@ -117,30 +117,11 @@ php artisan migrate:fresh --env=testing
 php artisan test
 ```
 
-特定のテストクラスのみを実行したい場合：
-
-```bash
-php artisan test --filter=AttendanceControllerTest
-```
-
-### テスト結果の確認
-
-成功時：
-```
-OK (5 tests, 10 assertions)
-```
-
-失敗時：
-```
-FAILURES! Tests: 5, Failures: 1.
-```
-
 ---
 
 ### 補足
 
-- テスト設定は `phpunit.xml` に記述されています。  
-- テストごとにDBをリセットしたい場合は、`RefreshDatabase` トレイトを使用します。  
+- テスト設定は `phpunit.xml` に記述されています。    
 
 ---
 
