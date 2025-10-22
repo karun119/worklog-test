@@ -77,7 +77,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 ---
 
-## PHPUnitを利用したテスト環境の手順🔗
+## ユーザー情報🔗
 
 ---
 
@@ -160,74 +160,80 @@ FAILURES! Tests: 5, Failures: 1.
 ## ER図🔗
 
 
-![ER図](https://github.com/user-attachments/assets/8eb7bbb5-b05f-41c2-a8a5-7e9b668a8125)
+![ER図]()
 
 
 
 ---
 
-### users テーブル
+# テーブル仕様
+
+## usersテーブル
 
 | カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
-|-----------|----|--------------|-------------|------------|--------------|
+|-----------|----|-------------|------------|----------|-------------|
 | id | unsigned bigint | ○ |  | ○ |  |
 | name | varchar(255) |  |  | ○ |  |
 | email | varchar(255) |  | ○ | ○ |  |
 | email_verified_at | timestamp |  |  |  |  |
 | password | varchar(255) |  |  | ○ |  |
-| role | enum('admin','general') |  |  | ○ |  |
+| admin_status | enum('admin','general') |  |  | ○ |  |
+| attendance_status | enum('before_work','working','break','after_work') |  |  | ○ |  |
 | remember_token | varchar(100) |  |  |  |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
 
 ---
 
-### attendances テーブル
+## attendancesテーブル
 
 | カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
-|-----------|----|--------------|-------------|------------|--------------|
+|-----------|----|-------------|------------|----------|-------------|
 | id | unsigned bigint | ○ |  | ○ |  |
 | user_id | unsigned bigint |  |  | ○ | users(id) |
-| work_date | date |  | ○(user_id + work_date) | ○ |  |
+| work_date | date |  | ○ (user_id + work_date) | ○ |  |
 | clock_in | time |  |  |  |  |
 | clock_out | time |  |  |  |  |
-| status | enum('before_work','working','break','after_work') |  |  | ○ |  |
+| break_in | time |  |  |  |  |
+| break_out | time |  |  |  |  |
+| break2_in | time |  |  |  |  |
+| break2_out | time |  |  |  |  |
+| total_work_time | time |  |  |  |  |
+| total_break_time | time |  |  |  |  |
+| comment | text |  |  | ○ |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
 
 ---
 
-### break_times テーブル
+## correction_requestsテーブル
 
 | カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
-|-----------|----|--------------|-------------|------------|--------------|
-| id | unsigned bigint | ○ |  | ○ |  |
-| attendance_id | unsigned bigint |  |  | ○ | attendances(id) |
-| break_start | time |  |  |  |  |
-| break_end | time |  |  |  |  |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
-
----
-
-### correction_requests テーブル
-
-| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
-|-----------|----|--------------|-------------|------------|--------------|
+|-----------|----|-------------|------------|----------|-------------|
 | id | unsigned bigint | ○ |  | ○ |  |
 | attendance_id | unsigned bigint |  |  | ○ | attendances(id) |
 | user_id | unsigned bigint |  |  | ○ | users(id) |
-| reason | text |  |  | ○ |  |
-| req_clock_in | time |  |  |  |  |
-| req_clock_out | time |  |  |  |  |
-| req_break1_start | time |  |  |  |  |
-| req_break1_end | time |  |  |  |  |
-| req_break2_start | time |  |  |  |  |
-| req_break2_end | time |  |  |  |  |
+| comment | text |  |  | ○ |  |
+| new_date | date |  |  | ○ |  |
+| new_clock_in | time |  |  |  |  |
+| new_clock_out | time |  |  |  |  |
+| new_break_in | time |  |  |  |  |
+| new_break_out | time |  |  |  |  |
+| new_break2_in | time |  |  |  |  |
+| new_break2_out | time |  |  |  |  |
+| application_date | date |  |  | ○ |  |
 | status | enum('pending','approved') |  |  | ○ |  |
-| requested_at | timestamp |  |  | ○ |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
+
+---
+
+### 補足
+
+- 機能要件（FN021：：休憩機能）には「休憩入り・休憩戻りボタンは1日に何回でも押下できる」と記載されていますが、UI 上では休憩は2回までしか表示されないため、今回は `attendances` テーブル内の `break_in` / `break_out` と `break2_in` / `break2_out` カラムで対応しています。
+
+- 以前は `breaks_times` テーブルを作成していましたが、UI 制約に合わせてテーブルを統合し、`attendances` テーブル内で管理する方式に変更しました。
+
 
 ---
 
