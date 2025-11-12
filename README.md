@@ -168,7 +168,8 @@ php artisan test
 ## ER図🔗
 
 
-![ER図]()
+<img width="971" height="1041" alt="index" src="https://github.com/user-attachments/assets/59e64bbd-4a60-4e38-afe4-2de13bd7f806" />
+
 
 
 
