@@ -77,7 +77,35 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 ---
 
-## ユーザー情報🔗
+## ユーザー情報 🔗
+
+| 名前 | メールアドレス | パスワード | 権限 |
+|------|----------------|-------------|------|
+| 山田 花子 | user1@example.com | password1 | 一般ユーザー |
+| 鈴木 一郎 | user2@example.com | password2 | 一般ユーザー |
+| 高橋 美咲 | user3@example.com | password3 | 一般ユーザー |
+| 田中 誠 | user4@example.com | password4 | 一般ユーザー |
+| 近藤 美玲 | user5@example.com | password5 | 一般ユーザー |
+
+
+
+### 管理者情報 🔗
+
+| 名前 | メールアドレス | パスワード | 権限 |
+|------|----------------|-------------|------|
+| 管理者 | admin@example.com | admin001 | 管理者 |
+
+
+### 補足
+
+- 一般ユーザーは `/login` 経由でのみログイン可能  
+- 管理者は `/admin/login` 経由でのみログイン可能  
+- **逆経路ではログイン不可**  
+  - 例：管理者が一般ログイン画面からログインしようとすると失敗  
+  - 例：一般ユーザーが管理者ログイン画面からログインしようとすると失敗  
+- ログイン経路は `Fortify` の `authenticateUsing()` によって制御  
+- ログアウト時は、それぞれのログイン画面に自動リダイレクトされる  
+
 
 ---
 
@@ -146,7 +174,7 @@ php artisan test
 
 ---
 
-# テーブル仕様
+# テーブル仕様 🗂️
 
 ## usersテーブル
 
@@ -157,8 +185,8 @@ php artisan test
 | email | varchar(255) |  | ○ | ○ |  |
 | email_verified_at | timestamp |  |  |  |  |
 | password | varchar(255) |  |  | ○ |  |
-| admin_status | enum('admin','general') |  |  | ○ |  |
-| attendance_status | enum('before_work','working','break','after_work') |  |  | ○ |  |
+| admin_status | enum('admin', 'general') |  |  | ○ |  |
+| attendance_status | enum('before_work', 'working', 'break', 'after_work') |  |  | ○ |  |
 | remember_token | varchar(100) |  |  |  |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
@@ -171,16 +199,25 @@ php artisan test
 |-----------|----|-------------|------------|----------|-------------|
 | id | unsigned bigint | ○ |  | ○ |  |
 | user_id | unsigned bigint |  |  | ○ | users(id) |
-| work_date | date |  | ○ (user_id + work_date) | ○ |  |
+| work_date | date |  | ○（user_id + work_date） | ○ |  |
 | clock_in | time |  |  |  |  |
 | clock_out | time |  |  |  |  |
-| break_in | time |  |  |  |  |
-| break_out | time |  |  |  |  |
-| break2_in | time |  |  |  |  |
-| break2_out | time |  |  |  |  |
 | total_work_time | time |  |  |  |  |
 | total_break_time | time |  |  |  |  |
 | comment | text |  |  | ○ |  |
+| created_at | timestamp |  |  |  |  |
+| updated_at | timestamp |  |  |  |  |
+
+---
+
+## break_timesテーブル
+
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|-----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ |  |  |  |
+| attendance_id | unsigned bigint |  |  |  | attendances(id) |
+| break_in | time |  |  |  |  |
+| break_out | time |  |  |  |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
 
@@ -191,31 +228,32 @@ php artisan test
 | カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
 |-----------|----|-------------|------------|----------|-------------|
 | id | unsigned bigint | ○ |  | ○ |  |
-| attendance_id | unsigned bigint |  |  | ○ | attendances(id) |
+| attendance_id | unsigned bigint |  |  |  | attendances(id) |
 | user_id | unsigned bigint |  |  | ○ | users(id) |
 | comment | text |  |  | ○ |  |
 | new_date | date |  |  | ○ |  |
 | new_clock_in | time |  |  |  |  |
 | new_clock_out | time |  |  |  |  |
-| new_break_in | time |  |  |  |  |
-| new_break_out | time |  |  |  |  |
-| new_break2_in | time |  |  |  |  |
-| new_break2_out | time |  |  |  |  |
 | application_date | date |  |  | ○ |  |
-| status | enum('pending','approved') |  |  | ○ |  |
+| status | enum('pending', 'approved') |  |  | ○ |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
 
 ---
 
-### 補足
+## correction_break_timesテーブル
 
-- 機能要件（FN021：：休憩機能）には「休憩入り・休憩戻りボタンは1日に何回でも押下できる」と記載されていますが、UI 上では休憩は2回までしか表示されないため、今回は `attendances` テーブル内の `break_in` / `break_out` と `break2_in` / `break2_out` カラムで対応しています。
-
-- 以前は `breaks_times` テーブルを作成していましたが、UI 制約に合わせてテーブルを統合し、`attendances` テーブル内で管理する方式に変更しました。
-
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|-----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ |  | ○ |  |
+| correction_request_id | unsigned bigint |  |  | ○ | correction_requests(id) |
+| new_break_in | time |  |  |  |  |
+| new_break_out | time |  |  |  |  |
+| created_at | timestamp |  |  |  |  |
+| updated_at | timestamp |  |  |  |  |
 
 ---
+
 
 ## URL🔗
 
