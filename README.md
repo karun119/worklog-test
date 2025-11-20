@@ -250,19 +250,20 @@ php artisan test
 
 ## correction_requestsテーブル
 
-| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
-|-----------|----|-------------|------------|----------|-------------|
-| id | unsigned bigint | ○ |  | ○ |  |
-| attendance_id | unsigned bigint |  |  |  | attendances(id) |
-| user_id | unsigned bigint |  |  | ○ | users(id) |
-| comment | text |  |  | ○ |  |
-| new_date | date |  |  | ○ |  |
-| new_clock_in | time |  |  |  |  |
-| new_clock_out | time |  |  |  |  |
-| application_date | date |  |  | ○ |  |
-| status | enum('pending', 'approved') |  |  | ○ |  |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
+| カラム名             | 型                          | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY     |
+| ---------------- | -------------------------- | ----------- | ---------- | -------- | --------------- |
+| id               | unsigned bigint            | ○           |            | ○        |                 |
+| attendance_id    | unsigned bigint            |             |            |          | attendances(id) |
+| user_id          | unsigned bigint            |             |            | ○        | users(id)       |
+| comment          | text                       |             |            | ○        |                 |
+| new_date         | date                       |             |            | ○        |                 |
+| new_clock_in     | time                       |             |            |          |                 |
+| new_clock_out    | time                       |             |            |          |                 |
+| application_date | date                       |             |            | ○        |                 |
+| status           | enum('pending','approved') |             |            | ○        |                 |
+| created_by_admin | boolean （true=管理者が直接修正、false=ユーザー申請）               |             |            | ○        |                 |
+| created_at       | timestamp                  |             |            |          |                 |
+| updated_at       | timestamp                  |             |            |          |                 |
 
 ---
 
