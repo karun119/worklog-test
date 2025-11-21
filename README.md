@@ -192,7 +192,8 @@ php artisan test
 ## ER図🔗
 
 
-<img width="971" height="1041" alt="index" src="https://github.com/user-attachments/assets/59e64bbd-4a60-4e38-afe4-2de13bd7f806" />
+<img width="971" height="1041" alt="index" src="https://github.com/user-attachments/assets/6259114d-1974-420e-ab39-6f2460b2f57e" />
+
 
 
 
