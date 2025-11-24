@@ -150,14 +150,23 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 ## PHPUnitを利用したテスト環境の手順🔗
 
-### テスト用データベースの作成
-
 ```bash
+1. MySQLコンテナに入る  
 docker-compose exec mysql bash
+2. MySQLにログイン
 mysql -u root -p
 # パスワードは「root」と入力
+3. テスト用データベースを作成
 create database test_database;
+4. 作成できたか確認する
+SHOW DATABASES;
+# 実行すると、MySQLにあるデータベースの一覧が表示されます。
+# その中に test_database があれば作成成功です。
+5.コンテナから退出
 exit
+
+
+
 ```
 
 ### PHPコンテナに入ります
