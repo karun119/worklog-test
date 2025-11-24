@@ -181,6 +181,13 @@ docker-compose exec php bash
 php artisan migrate:fresh --env=testing
 ```
 
+>⚠️migrate:fresh を実行すると、テスト用データベース内のデータが すべて削除されます。ブラウザで
+ログイン確認などを行う場合は、初期データが必要なため 以下のseed をつけて実行してください。
+>
+```bash
+php artisan migrate:fresh --env=testing --seed
+```
+
 ### テストを実行
 
 ```bash
