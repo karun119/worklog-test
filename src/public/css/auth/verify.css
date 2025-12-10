@@ -1,0 +1,94 @@
+.verify-container {
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+    align-items: flex-start;
+    padding-top: 200px;
+}
+
+.verify-status-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.verify-status-message {
+    font-weight: 700;
+    font-size: 14px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    text-align: center;
+}
+
+.verify-box {
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.verify-message {
+    width: 100%;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    white-space: normal;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.verify-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #d9d9d9;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    border: 1px solid #000000
+}
+
+.verify-btn:hover {
+    background-color: #bfbfbf;
+}
+
+.verify-form {
+    margin-top: 20px;
+}
+
+.verify-resend-btn {
+    margin-top: 30px;
+    background-color: transparent;
+    border: none;
+    color: #3490dc;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.verify-resend-btn:hover {
+    color: #2779bd;
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .verify-container {
+        align-items: flex-start;
+        padding-top: 100px;
+        height: auto;
+    }
+
+    .verify-message {
+        font-size: 20px;
+    }
+}

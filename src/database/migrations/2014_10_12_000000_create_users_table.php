@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('admin_status', ['admin', 'general'])->default('general');
+            $table->enum('attendance_status', ['before_work', 'working', 'break', 'after_work'])->default('before_work');
             $table->rememberToken();
             $table->timestamps();
         });

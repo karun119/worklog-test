@@ -1,0 +1,172 @@
+body {
+    background-color: #F0EFF2;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.request-list {
+    width: 900px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.request-list__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-bar {
+    display: inline-block;
+    width: 6px;
+    height: 40px;
+    background-color: #000;
+    margin-right: 16px;
+}
+
+.page__title {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.status-tabs {
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    list-style: none;
+    padding: 0 30px;
+    margin: 0 0 20px 0;
+    letter-spacing: 0.15em;
+    gap: 50px;
+    border-bottom: 1px solid #000;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 400;
+    color: #000;
+    transition: all 0.2s;
+}
+
+.tab.active {
+    font-weight: 700;
+    color: #000;
+}
+
+.request-list__table-wrap {
+    width: 900px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow-x: auto;
+    padding: 0;
+    box-sizing: border-box;
+    letter-spacing: 0.15em;
+    color: #737373;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.request-list__table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.table-head {
+    padding: 12px 16px;
+    border-bottom: 3px solid #E1E1E1;
+    font-weight: 700;
+}
+
+.table-cell {
+    padding: 12px 16px;
+    border-bottom: 2px solid #E1E1E1;
+    font-size: 16px;
+    color: #737373;
+}
+
+.detail-head {
+    text-align: left;
+}
+
+.table-head--status,
+.table-cell--status {
+    text-align: center;
+    white-space: nowrap;
+    width: 80px;
+    padding-left: 12px;
+    padding-right: 12px;
+    letter-spacing: 0.15em;
+}
+
+.table-head--name,
+.table-cell--name {
+    text-align: left;
+    white-space: normal;
+    word-break: break-word;
+    width: 140px;
+    padding-left: 40px;
+    letter-spacing: 0.15em;
+}
+
+.table-head--target-date,
+.table-cell--target-date {
+    text-align: left;
+    white-space: nowrap;
+    width: 130px;
+    padding-left: 30px;
+    letter-spacing: 0;
+}
+
+.table-head--reason,
+.table-cell--reason {
+    text-align: left;
+    white-space: normal;
+    word-break: break-word;
+    width: 250px;
+    padding-left: 50px;
+    letter-spacing: 0.15em;
+}
+
+.table-head--request-date,
+.table-cell--request-date {
+    text-align: left;
+    white-space: nowrap;
+    width: 130px;
+    padding-right: 30px;
+    letter-spacing: 0;
+}
+
+.table-head--detail,
+.table-cell--detail {
+    text-align: left;
+    white-space: nowrap;
+    width: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.table-row:last-child .table-cell {
+    border-bottom: 1px solid #E1E1E1;
+}
+
+.no-data-row .table-cell {
+    text-align: center;
+    color: #999999;
+    padding: 20px 10px;
+    border-bottom: 2px solid #E1E1E1;
+}
+
+.detail-link {
+    color: #000;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.detail-link:hover {
+    opacity: 0.8;
+    transition: 0.3s;
+    text-decoration: underline;
+}

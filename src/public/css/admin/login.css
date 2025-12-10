@@ -1,0 +1,66 @@
+.admin-login-form {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.login-form__heading {
+    font-size: 36px;
+    margin-bottom: 35px;
+    font-weight: 700;
+}
+
+.login-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.login-form__group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.login-form__label {
+    margin-bottom: 3px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.login-form__input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    height: 60px;
+}
+
+.login-form__error-message {
+    color: #ff5555;
+    font-size: 14px;
+    margin-top: 15px;
+    font-weight: 700;
+}
+
+.login-form__btn {
+    margin-top: 40px;
+    width: 680px;
+    max-width: 100%;
+    padding: 5px;
+    font-size: 26px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 60px;
+    font-weight: 700;
+}
+
+.login-form__btn:hover {
+    background-color: #333333;
+}

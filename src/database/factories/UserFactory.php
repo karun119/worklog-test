@@ -18,8 +18,10 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'remember_token' => Str::random(10),
+            'admin_status' => 'general',
+            'attendance_status' => 'before_work',
         ];
     }
 
@@ -30,10 +32,52 @@ class UserFactory extends Factory
      */
     public function unverified()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'email_verified_at' => null,
             ];
         });
+    }
+
+    public function admin()
+    {
+        return $this->state(fn() => [
+            'admin_status' => 'admin',
+        ]);
+    }
+
+    public function general()
+    {
+        return $this->state(fn() => [
+            'admin_status' => 'general',
+        ]);
+    }
+
+    public function beforeWork()
+    {
+        return $this->state(fn() => [
+            'attendance_status' => 'before_work',
+        ]);
+    }
+
+    public function working()
+    {
+        return $this->state(fn() => [
+            'attendance_status' => 'working',
+        ]);
+    }
+
+    public function onBreak()
+    {
+        return $this->state(fn() => [
+            'attendance_status' => 'break',
+        ]);
+    }
+
+    public function afterWork()
+    {
+        return $this->state(fn() => [
+            'attendance_status' => 'after_work',
+        ]);
     }
 }

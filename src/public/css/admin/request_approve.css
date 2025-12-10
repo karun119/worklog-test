@@ -1,0 +1,198 @@
+body {
+    background-color: #F0EFF2;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.approve-detail {
+    width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.approve-detail__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-bar {
+    display: inline-block;
+    width: 8px;
+    height: 40px;
+    background-color: #000;
+    margin-right: 16px;
+}
+
+.page__title {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.approve-table {
+    width: 900px;
+    background-color: #fff;
+    border-radius: 10px;
+    border-collapse: collapse;
+    box-sizing: border-box;
+    padding: 20px;
+    letter-spacing: 0.15em;
+}
+.approve-table td {
+    width: 100%;
+}
+.comment-field,
+.field {
+    padding: 20px;
+}
+
+.row-divider {
+    border-bottom: 2px solid #E1E1E1;
+    height: 90px;
+}
+
+.label-cell {
+    text-align: left;
+    padding-left: 80px;
+    width: 150px;
+    vertical-align: middle;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    white-space: nowrap;
+    color: #737373;
+}
+
+.field-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 50px;
+}
+.field-group {
+    display: flex;
+    align-items: center;
+}
+
+.name-field .field-wrapper {
+    padding-right: 200px;
+    min-height: 40px;
+}
+
+.date-year {
+    margin-right: 125px;
+}
+
+.clock-in-group,
+.break-in-group {
+    margin-right: 15px;
+}
+
+.clock-out-group,
+.break-out-group {
+    margin-right: 15px;
+}
+
+.name-value,
+.date-year,
+.date-monthday {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 0.15em;
+}
+
+.time-field .field-wrapper,
+.break-row.field-wrapper {
+    justify-content: center;
+    gap: 16px;
+}
+
+.time-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-value {
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 103px;
+    height: 28px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 28px;
+    font-size: 16px;
+    color: #000;
+    letter-spacing: 0.15em;
+}
+
+.tilde {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 20px;
+}
+
+.comment-value {
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 316px;
+    min-height: 50px;
+    height: auto;
+    padding: 0 15px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+    text-align: left;
+    margin: 0;
+    white-space: pre-line;
+    letter-spacing: 0.15em;
+}
+
+.approve-actions {
+    width: 900px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.approve-btn {
+    width: 130px;
+    height: 50px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 18px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+}
+
+.approve-btn:hover {
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.approve-btn,
+.approve-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.approve-message {
+    width: 130px;
+    height: 50px;
+    background-color: #696969;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 18px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+}

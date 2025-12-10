@@ -1,0 +1,91 @@
+body {
+    background-color: #F0EFF2;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.staff-list {
+    width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.staff-list__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-bar {
+    display: inline-block;
+    width: 8px;
+    height: 40px;
+    background-color: #000;
+    margin-right: 16px;
+}
+
+.page__title {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    background-color: #ffffff;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.staff-list__table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+}
+
+.table-head,
+.table-cell {
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    border-bottom: 2px solid #E1E1E1;
+    color: #737373;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.table-head {
+    border-bottom: 3px solid #E1E1E1;
+    background-color: #ffffff;
+}
+
+.attendance-list__table .table-row:last-child .table-cell {
+    border-bottom: none;
+}
+
+.table-head:first-child,
+.table-cell:first-child {
+    padding-left: 45px;
+}
+
+.table-head:last-child,
+.table-cell:last-child {
+    padding-right: 22px;
+}
+
+.detail-link {
+    color: #000000;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+}
+
+.detail-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+    transition: 0.3s;
+}
+
