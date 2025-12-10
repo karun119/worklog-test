@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
-use Carbon\Carbon;
 use App\Models\Attendance;
 use App\Models\BreakTime;
 use App\Models\CorrectionRequest;
@@ -22,7 +21,7 @@ class AdminRequestControllerTest extends TestCase
      * @return void
      */
 
-    // 承認待ちの修正申請が全て表示されている
+    /** 承認待ちの修正申請が全て表示されている */
     public function test_pending_corrections_are_listed()
     {
         /** @var User $admin */
@@ -64,7 +63,7 @@ class AdminRequestControllerTest extends TestCase
     }
 
 
-    // 承認済みの修正申請が全て表示されている
+    /** 承認済みの修正申請が全て表示されている */
     public function test_approved_corrections_are_listed()
     {
         /** @var User $admin */
@@ -105,7 +104,8 @@ class AdminRequestControllerTest extends TestCase
         $response->assertSee('承認済み申請サンプル');
     }
 
-    // 修正申請の詳細内容が正しく表示されている
+
+    /** 修正申請の詳細内容が正しく表示されている */
     public function test_correction_details_are_displayed_correctly()
     {
         /** @var User $admin */
@@ -154,7 +154,8 @@ class AdminRequestControllerTest extends TestCase
         $response->assertSee('12:45');
     }
 
-    // 修正申請の承認処理が正しく行われる
+
+    /** 修正申請の承認処理が正しく行われる */
     public function test_correction_can_be_approved()
     {
         /** @var User $admin */
@@ -201,14 +202,12 @@ class AdminRequestControllerTest extends TestCase
             'id' => $correction->id,
             'status' => 'approved',
         ]);
-
         $this->assertDatabaseHas('attendances', [
             'id' => $attendance->id,
             'clock_in' => '09:45:00',
             'clock_out' => '17:57:00',
             'comment' => '元の勤怠コメント',
         ]);
-
         $this->assertDatabaseHas('break_times', [
             'attendance_id' => $attendance->id,
             'break_in' => '12:00:00',

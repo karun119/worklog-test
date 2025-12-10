@@ -18,7 +18,7 @@ class AdminAttendanceAndUsersTest extends TestCase
      */
     use RefreshDatabase;
 
-    // その日になされた全ユーザーの勤怠情報が正確に確認できる
+    /** その日になされた全ユーザーの勤怠情報が正確に確認できる */
     public function test_admin_can_view_all_users_attendance_of_the_day()
     {
         $today = Carbon::today()->format('Y-m-d');
@@ -50,7 +50,8 @@ class AdminAttendanceAndUsersTest extends TestCase
             ->assertSee('19:00');
     }
 
-    //  遷移した際に現在の日付が表示される
+
+    /** 遷移した際に現在の日付が表示される */
     public function test_current_date_is_displayed_on_page_load()
     {
         $today = Carbon::today()->format('Y年n月j日');
@@ -63,7 +64,8 @@ class AdminAttendanceAndUsersTest extends TestCase
             ->assertSee($today . 'の勤怠');
     }
 
-    // 「前日」を押下した時に前の日の勤怠情報が表示される
+
+    /** 「前日」を押下した時に前の日の勤怠情報が表示される */
     public function test_previous_day_button_shows_yesterdays_attendance()
     {
         $admin = User::factory()->admin()->create();
@@ -93,7 +95,8 @@ class AdminAttendanceAndUsersTest extends TestCase
             ->assertDontSee('17:00');
     }
 
-    // 「翌日」を押下した時に次の日の勤怠情報が表示される
+
+    /** 「翌日」を押下した時に次の日の勤怠情報が表示される */
     public function test_next_day_button_shows_tomorrows_attendance()
     {
         $admin = User::factory()->admin()->create();
@@ -112,7 +115,6 @@ class AdminAttendanceAndUsersTest extends TestCase
             'clock_in'  => '09:00',
             'clock_out' => '18:00',
         ]);
-
         $this->actingAs($admin)
             ->get('/admin/attendance/list?date=' . $tomorrow)
             ->assertStatus(200)
@@ -123,7 +125,8 @@ class AdminAttendanceAndUsersTest extends TestCase
             ->assertDontSee('18:00');
     }
 
-    // 勤怠詳細画面に表示されるデータが選択したものになっている
+
+    /** 勤怠詳細画面に表示されるデータが選択したものになっている */
     public function test_attendance_detail_displays_correct_data()
     {
         /** @var User $admin */
@@ -153,7 +156,8 @@ class AdminAttendanceAndUsersTest extends TestCase
         $response->assertSee('通常勤務');
     }
 
-    // 出勤時間が退勤時間より後になっている場合、エラーメッセージが表示される
+
+    /** 出勤時間が退勤時間より後になっている場合、エラーメッセージが表示される */
     public function test_error_displayed_when_clock_in_after_clock_out_admin()
     {
         /** @var User $admin */
@@ -183,7 +187,8 @@ class AdminAttendanceAndUsersTest extends TestCase
         ]);
     }
 
-    // 休憩開始時間が退勤時間より後になっている場合、エラーメッセージが表示される
+
+    /** 休憩開始時間が退勤時間より後になっている場合、エラーメッセージが表示される */
     public function test_error_displayed_when_break_in_after_clock_out_admin()
     {
         /** @var User $admin */
@@ -219,7 +224,8 @@ class AdminAttendanceAndUsersTest extends TestCase
         ]);
     }
 
-    // 休憩終了時間が退勤時間より後になっている場合、エラーメッセージが表示される
+
+    /** 休憩終了時間が退勤時間より後になっている場合、エラーメッセージが表示される */
     public function test_error_displayed_when_break_out_after_clock_out_admin()
     {
         /** @var User $admin */
@@ -256,7 +262,8 @@ class AdminAttendanceAndUsersTest extends TestCase
         ]);
     }
 
-    // 備考欄が未入力の場合のエラーメッセージが表示される
+
+    /** 備考欄が未入力の場合のエラーメッセージが表示される */
     public function test_error_displayed_when_comment_is_empty_admin()
     {
         /** @var User $admin */
@@ -292,9 +299,9 @@ class AdminAttendanceAndUsersTest extends TestCase
         ]);
     }
 
-    // 補足：
-    // テストケースには書かれていませんが、
-    // 出勤・退勤時間は必須バリデーションを追加しているため、未入力時にエラーが返るかテストで確認。
+    /**
+     * 補足：テストケースには書かれていませんが、出勤・退勤時間は必須バリデーションを追加しているため、未入力時にエラーが返るかテストで確認。
+     */
     public function test_clock_in_and_clock_out_are_required_admin()
     {
         /** @var User $admin */
@@ -346,7 +353,55 @@ class AdminAttendanceAndUsersTest extends TestCase
         ]);
     }
 
-    // 管理者ユーザーが全一般ユーザーの「氏名」「メールアドレス」を確認できる
+    /**
+     * 補足：テストケースには書かれていませんが、休憩開始（break_in）と休憩終了（break_out）はペアで入力する必要があることをテスト。
+     */
+    public function test_break_in_and_break_out_must_be_pair_admin()
+    {
+        /** @var User $admin */
+        $admin = User::factory()->create(['admin_status' => 'admin']);
+        $this->actingAs($admin);
+
+        /** @var User $user */
+        $user = User::factory()->create(['admin_status' => 'general']);
+        $attendance = Attendance::factory()->create([
+            'user_id' => $user->id,
+            'work_date' => today(),
+            'clock_in' => '09:00',
+            'clock_out' => '18:00',
+        ]);
+        $response = $this->from(route('admin.attendance.detail', ['id' => $attendance->id]))
+            ->post(route('admin.attendance.update', ['id' => $attendance->id]), [
+                'clock_in' => '09:00',
+                'clock_out' => '18:00',
+                'break_in' => ['12:00'],
+                'break_out' => [''],
+                'work_date' => $attendance->work_date->format('Y-m-d'),
+                'user_id' => $user->id,
+                'comment' => '修正テスト',
+            ]);
+        $response->assertRedirect(route('admin.attendance.detail', ['id' => $attendance->id]));
+        $response->assertSessionHasErrors([
+            'break_in.0' => '休憩開始と休憩終了はセットで入力してください',
+        ]);
+        $response = $this->from(route('admin.attendance.detail', ['id' => $attendance->id]))
+            ->post(route('admin.attendance.update', ['id' => $attendance->id]), [
+                'clock_in' => '09:00',
+                'clock_out' => '18:00',
+                'break_in' => [''],
+                'break_out' => ['12:30'],
+                'work_date' => $attendance->work_date->format('Y-m-d'),
+                'user_id' => $user->id,
+                'comment' => '修正テスト',
+            ]);
+        $response->assertRedirect(route('admin.attendance.detail', ['id' => $attendance->id]));
+        $response->assertSessionHasErrors([
+            'break_in.0' => '休憩開始と休憩終了はセットで入力してください',
+        ]);
+    }
+
+
+    /** 管理者ユーザーが全一般ユーザーの氏名・メールアドレスを確認できる */
     public function test_admin_can_view_staff_list()
     {
         /** @var User $admin */
@@ -363,7 +418,8 @@ class AdminAttendanceAndUsersTest extends TestCase
         $response->assertSee($staff2->email);
     }
 
-    // ユーザーの勤怠情報が正しく表示される
+
+    /** ユーザーの勤怠情報が正しく表示される */
     public function test_admin_can_view_staff_attendance_list()
     {
         /** @var User $admin */
@@ -385,15 +441,14 @@ class AdminAttendanceAndUsersTest extends TestCase
             'break_in' => '15:00',
             'break_out' => '15:15',
         ]);
-
         $this->actingAs($admin);
         $response = $this->get('/admin/attendance/staff/' . $staff->id);
         $response->assertStatus(200);
         $response->assertSee($staff->name . 'さんの勤怠');
         $today = now();
 
-        \Carbon\Carbon::setLocale('ja');
-        $today = \Carbon\Carbon::today();
+        Carbon::setLocale('ja');
+        $today = Carbon::today();
         $formattedDate = $today->isoFormat('MM/DD(ddd)');
 
         $response->assertSee($formattedDate);
@@ -403,7 +458,8 @@ class AdminAttendanceAndUsersTest extends TestCase
         $response->assertSee('8:15');
     }
 
-    // 「前月」を押下した時に表示月の前月の情報が表示される
+
+    /** 「前月」を押下した時に表示月の前月の情報が表示される */
     public function test_admin_can_view_previous_month_attendance()
     {
         /** @var User $admin */
@@ -435,7 +491,8 @@ class AdminAttendanceAndUsersTest extends TestCase
         $response->assertSee('18:00');
     }
 
-    // 「翌月」を押下した時に表示月の翌月の情報が表示される
+
+    /** 「翌月」を押下した時に表示月の翌月の情報が表示される */
     public function test_admin_can_view_next_month_attendance()
     {
         /** @var User $admin */
@@ -468,7 +525,8 @@ class AdminAttendanceAndUsersTest extends TestCase
         $response->assertSee('8:15');
     }
 
-    // 「詳細」を押下すると、その日の勤怠詳細画面に遷移する
+
+    /** 「詳細」を押下すると、その日の勤怠詳細画面に遷移する */
     public function test_admin_can_jump_to_attendance_detail_page()
     {
         /** @var User $admin */

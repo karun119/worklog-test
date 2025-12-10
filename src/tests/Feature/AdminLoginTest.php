@@ -15,9 +15,8 @@ class AdminLoginTest extends TestCase
      * @return void
      */
     use RefreshDatabase;
-    /**
-     * 管理者ログイン時、メールアドレス未入力でバリデーションエラーが出る
-     */
+
+    /** 管理者ログイン時、メールアドレス未入力でバリデーションエラーが出る */
     public function test_admin_login_email_is_required()
     {
         User::factory()->create([
@@ -35,9 +34,9 @@ class AdminLoginTest extends TestCase
             'メールアドレスを入力してください'
         );
     }
-    /**
-     * 管理者ログイン時、パスワード未入力でバリデーションエラーが出る
-     */
+
+
+    /** 管理者ログイン時、パスワード未入力でバリデーションエラーが出る */
     public function test_admin_login_password_is_required()
     {
         $admin = User::factory()->create([
@@ -54,9 +53,9 @@ class AdminLoginTest extends TestCase
             'パスワードを入力してください'
         );
     }
-    /**
-     * 管理者ログイン時、メールアドレスまたはパスワードが一致しない場合にエラー
-     */
+
+
+    /** 管理者ログイン時、メールアドレスまたはパスワードが一致しない場合にエラー */
     public function test_admin_login_invalid_credentials_show_error()
     {
         User::factory()->create([
