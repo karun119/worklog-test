@@ -174,7 +174,8 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 ### 📌 2. バリデーション一覧
 
-<img width="821" height="411" alt="スクリーンショット 2025-11-27 23 01 45" src="https://github.com/user-attachments/assets/c87081fd-062c-4129-8fee-24de3414aeb3" />
+![バリデーションエラー](public/images/validation_error.png)
+
 
 ---
 
