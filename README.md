@@ -174,7 +174,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 ### 📌 2. バリデーション一覧
 
-![バリデーションエラー](public/images/validation_error.png)
+![バリデーションエラー](src/public/images/validation_error.png)
 
 
 ---
