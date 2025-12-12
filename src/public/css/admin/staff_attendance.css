@@ -122,9 +122,13 @@ body {
     border-bottom: none;
 }
 
-.table-head:first-child,
+.table-head:first-child {
+    text-align: left;
+    padding-left: 25px;
+}
+
 .table-cell:first-child {
-    padding-left: 12px;
+    padding-left: 20px;
 }
 
 .table-head:last-child,

@@ -119,13 +119,17 @@ body {
     background-color: #ffffff;
 }
 
-.attendance-list__table .table-row:last-child .table-cell {
-    border-bottom: none;
+.table-head:first-child {
+    text-align: left;
+    padding-left: 25px;
 }
 
-.table-head:first-child,
 .table-cell:first-child {
-    padding-left: 12px;
+    padding-left: 20px;
+}
+
+.attendance-list__table .table-row:last-child .table-cell {
+    border-bottom: none;
 }
 
 .table-head:last-child,

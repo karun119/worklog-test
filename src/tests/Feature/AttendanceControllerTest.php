@@ -21,7 +21,7 @@ class AttendanceControllerTest extends TestCase
     /** @test */
 
     /** 現在の日時情報がUIと同じ形式で出力されている */
-    public function it_displays_current_date_and_time_on_attendance_page()
+    public function test_it_displays_current_date_and_time_on_attendance_page()
     {
         /** @var \App\Models\User $user */
         $user = User::factory()->create();
