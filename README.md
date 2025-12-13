@@ -182,26 +182,36 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 ## PHPUnitを利用したテスト環境の手順🔗
 
+
+1. MySQLコンテナに入る
 ```bash
-1. MySQLコンテナに入る  
 docker-compose exec mysql bash
-2. MySQLにログイン
-mysql -u root -p
-# パスワードは「root」と入力
-3. テスト用データベースを作成
-create database test_database;
-4. 作成できたか確認する
-SHOW DATABASES;
-# 実行すると、MySQLにあるデータベースの一覧が表示されます。
-# その中に test_database があれば作成成功です。
-5.コンテナから退出
-exit
-
-
-
 ```
+2. MySQLにログイン
+```bash  
+mysql -u root -p
+```
+>パスワードは「root」と入力
+3. テスト用データベースを作成
+```bash
+create database test_database;
+```
+4. 作成できたか確認する
+```bash
+SHOW DATABASES;
+```
+ >実行すると、MySQLにあるデータベースの一覧が表示されます。
+ >その中に test_database があれば作成成功です。
 
-### PHPコンテナに入ります
+5.コンテナから退出
+```bash
+exit
+```
+6.もう一度
+```bash
+exit
+```
+7.PHPコンテナに入ります
 
 ```bash
 docker-compose exec php bash
@@ -222,11 +232,7 @@ php artisan migrate:fresh --env=testing --seed
 
 ### テストを実行
 
-```bash
-./vendor/bin/phpunit
-```
-
-または Laravel コマンドで実行する場合：
+Laravel コマンドで実行する場合：
 
 ```bash
 php artisan test
